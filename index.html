@@ -2,24 +2,47 @@
 <html>
   <head>
     <style>
+      body{
+        background:lightyellow;
+      }
       h2{
+        margin: 10px;
         font-family: Helvetica, Arial, serif;
-        font:100px;
-        display:block;
-
+        font-size:50px;
+        font-style:oblique;
+        color: #008B8B;
+        text-align:center;
       }
       #tweets{
-        border: 10px solid #00FFFF;
+        border: 10px solid #008B8B;
         font-family: Helvetica, Arial, serif;
+        background:lightblue;
+        width:50%;
+        display:block;
+        margin-left:auto;
+        margin-right:auto;
       }
 
       #tweets div{
-        padding: 2px;
-        text-align
+        padding: 10px;
+        margin: 10px;
+        background:lightyellow;
+        border:1px solid #008B8B; 
       }
 
-      .color{
-        font:red;
+      a{
+        text-decoration:none;
+        color:black;
+      }
+
+      a:hover{
+        color:#008B8B;
+      }
+
+      p{
+        margin:1px;
+        padding:1px;
+        font-size:10px;
       }
 
     </style>
@@ -29,7 +52,7 @@
   </head>
   <body>
     <h2> Twittler </h2>
-    <button id="refresh"> Refresh Tweets </button>
+    <!--<button id="refresh"> Refresh Tweets </button> -->
     <div id="tweets">
     </div>
     <script>
@@ -37,20 +60,12 @@
           var tweetNum = -1;
           var $body = $('body');
           var index = streams.home.length - 1;
-        /* 
-        switch(tweet.user){
-          case(tweet.user === "shawndrost"):
-             $('.user').prepend('<img src ="images/red-bird-icon.png" />')
-             break;
-        } */
-        
-       // <a href = "https://twitter.com/shawndrost"> tweet.user </a>
-        
-
-        //display last 10 current tweets 
+  
+        //display current tweets on load
         while(index >= 0){
           var tweet = streams.home[index]
           var link = '';
+          // add link functionality to the username 
             switch(tweet.user){
               case("shawndrost"):
                 link = '<a href = "https://twitter.com/shawndrost">'+ tweet.user + '</a>'
@@ -65,7 +80,7 @@
                 link = '<a href = "https://twitter.com/sharksforcheap">' + tweet.user + '</a>'
               break
             }
-          var currTweet = "<div><strong class='user'>@"+ link + "</strong>: " + tweet.message + ' ' + tweet.created_at + "</div>"  
+          var currTweet = "<div><strong class='user'>@"+ link + "</strong>: " + tweet.message + '<p> ' + tweet.created_at + "</p></div>"  
             $(currTweet).appendTo('#tweets');
             index -= 1;
             tweetNum++;
@@ -76,31 +91,33 @@
           var index = streams.home.length - 1;
           while(index>=tweetNum){
             var tweet = streams.home[index]
-            var newTweet = "<div><strong class='user'>@" + link + "</strong>: " + tweet.message + ' '+ tweet.created_at + "</div>"
+            var link = '';
+          // add link functionality to the username 
+            switch(tweet.user){
+              case("shawndrost"):
+                link = '<a href = "https://twitter.com/shawndrost">'+ tweet.user + '</a>'
+              break
+              case("mracus"):
+                link = '<a href = "https://twitter.com/mracus">' + tweet.user + '</a>'
+              break
+              case("douglascalhoun"):
+                link = '<a href = "https://twitter.com/douglascalhoun">' + tweet.user + '</a>'
+              break
+              case("sharksforcheap"):
+                link = '<a href = "https://twitter.com/sharksforcheap">' + tweet.user + '</a>'
+              break
+            }
+            var newTweet = "<div><strong class='user'>@" + link + "</strong>: " + tweet.message + '<p>'+ tweet.created_at + "</p></div>"
               $(newTweet).prependTo('#tweets');
               index++
               $('#tweets div').last('div').remove()
           }
         }
-        /*
-        $('strong').on('click',function(){
-          if
-        })
-*/
+       
         // refreshes tweets every 2 seconds 
         setInterval(updateTweets, 2000);
-        /*
-         
-        */
-        $('.user').on('mouseover',function(){
-          var text = $('.user').text()
-          alert(text)
-          if(text.indexOf("@shawndrost") !== -1){
-            alert('yes');
-          }
-              //$('.user').addClass('color')
-          });
-         
+        
+        
 
         
       });
